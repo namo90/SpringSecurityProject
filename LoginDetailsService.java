@@ -37,15 +37,15 @@ public class LoginDetailsService implements UserDetailsService {
 	
 	public Login getUserDetails(String username )
 	{
-		Login loginDetails=loginRepository.findByLoginUser(username);
-		Login l=null;
-		if(loginDetails !=null)
-		{
-			
-		
+			Login returnLoginValues = null;
+		Optional<String> usernameOptional = Optional.of(username);
+		if (usernameOptional.isPresent()) {
+			Login loginDetails = loginRepository.findByLoginUser(username);
+			returnLoginValues = loginDetails;
+			return returnLoginValues;
+		} else {
+			return returnLoginValues;
 		}
-		
-		return loginDetails;
 		
 	}
 
