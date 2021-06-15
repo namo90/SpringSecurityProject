@@ -26,7 +26,7 @@ public class LoginDetailsService implements UserDetailsService {
 		
 	Login getuserDetails=	getUserDetails(username);
 	
-		if(username.equalsIgnoreCase(getuserDetails.getLoginUser())) {
+		if(username.equals(getuserDetails.getLoginUser())) {
 	//	return (UserDetails) new Login("namo","namo123",new ArrayList<>());	
 			return new org.springframework.security.core.userdetails.User(getuserDetails.getLoginUser(),getuserDetails.getPassword(), new ArrayList<>());
 		}else {
