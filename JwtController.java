@@ -21,7 +21,7 @@ import com.Practice.onlineShoppingProject.jwt.helper.JwtUtil;
 import com.Practice.onlineShoppingProject.jwt.service.LoginDetailsService;
 
 @RestController
-@CrossOrigin(origins="http://localhost:8080")
+@CrossOrigin
 public class JwtController {
 	@Autowired
 	private LoginDetailsService loginDetailsService;
@@ -30,8 +30,8 @@ public class JwtController {
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
-	@RequestMapping(value="/token",method=RequestMethod.POST)
-	public ResponseEntity<?> generateToken(@RequestBody Login login) throws Exception
+	@PostMapping("/token")
+	public ResponseEntity<Object> generateToken(@RequestBody Login login) throws Exception
 	{
 		System.out.println("getting username & pwd here "+" "+login);
 		//return null;
@@ -42,9 +42,9 @@ public class JwtController {
 			e.printStackTrace();
 			throw new Exception("Bad Credentials");
 		}
-UserDetails userdetails	=	this.loginDetailsService.loadUserByUsername(login.getLoginUser());
+		UserDetails userdetails	=	this.loginDetailsService.loadUserByUsername(login.getLoginUser());
 		String token=this.jwtUtil.generateToken(userdetails);
 
-return ResponseEntity.ok(new JwtTokenResponse(token));
+		return ResponseEntity.ok(new JwtTokenResponse(token));
 	}
 }
